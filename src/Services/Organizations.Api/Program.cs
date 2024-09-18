@@ -1,4 +1,3 @@
-
 using Organizations.Api.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,3 +22,5 @@ serviceApiGroup.MapPost("/", OrganizationController.Create)
    .WithOpenApi();
 
 app.Run();
+
+public partial class OrganizationApiProgram { }

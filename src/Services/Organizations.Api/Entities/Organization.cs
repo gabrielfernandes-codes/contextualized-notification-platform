@@ -1,7 +1,6 @@
-namespace Organizations.Api.Entity
+namespace Organizations.Api.Entity;
+
+public class Organization
 {
-    public class Organization
-    {
-        public required string Id { get; set; }
-    }
+    public required string Id { get; set; }
 }

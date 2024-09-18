@@ -1,14 +1,13 @@
+namespace Organizations.Api.Controllers;
+
 using Organizations.Api.Entity;
 
-namespace Organizations.Api.Controllers
+public class OrganizationController
 {
-    class OrganizationController
+    public static IResult Create()
     {
-        public static Organization Create()
-        {
-            var organization = new Organization { Id = Guid.NewGuid().ToString() };
+        var organization = new Organization { Id = Guid.NewGuid().ToString() };
 
-            return organization;
-        }
+        return TypedResults.Created(organization.Id, organization);
     }
 }
