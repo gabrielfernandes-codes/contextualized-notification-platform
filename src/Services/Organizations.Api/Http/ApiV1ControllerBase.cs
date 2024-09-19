@@ -1,6 +1,6 @@
-namespace Organizations.Api.Http;
-
 using Microsoft.AspNetCore.Mvc;
+
+namespace Organizations.Api.Http;
 
 [ApiController]
 [Route("v1/[area]")]

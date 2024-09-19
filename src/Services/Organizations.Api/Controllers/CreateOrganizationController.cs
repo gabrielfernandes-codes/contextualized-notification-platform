@@ -1,10 +1,9 @@
-namespace Organizations.Api.Controllers;
-
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Organizations.Api.Http;
 using Organizations.Api.Models;
+
+namespace Organizations.Api.Controllers;
 
 #pragma warning disable CS1998 // Temporarily disable async warning
 [Area("organizations")]

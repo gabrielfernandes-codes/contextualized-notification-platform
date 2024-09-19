@@ -1,10 +1,7 @@
-namespace Organizations.Api.Tests.Integrations;
-
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
+
+namespace Organizations.Api.Tests.Integrations;
 
 public class ProgramIntegrationTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
