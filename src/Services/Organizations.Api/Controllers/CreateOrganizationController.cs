@@ -8,9 +8,9 @@ using Organizations.Api.Models;
 
 #pragma warning disable CS1998 // Temporarily disable async warning
 [Area("organizations")]
-public class CreateOrganizationController : ApiControllerBase
+public class CreateOrganizationController : ApiV1ControllerBase
 {
-    public CreateOrganizationController(ILogger<ApiControllerBase> logger) : base(logger) { }
+    public CreateOrganizationController(ILogger<ApiV1ControllerBase> logger) : base(logger) { }
 
     [HttpPost()]
     public async Task<Created<Organization>> Index()

@@ -8,9 +8,9 @@ using Organizations.Api.Models;
 
 #pragma warning disable CS1998 // Temporarily disable async warning
 [Area("organizations")]
-public class GetOrganizationController : ApiControllerBase
+public class GetOrganizationController : ApiV1ControllerBase
 {
-    public GetOrganizationController(ILogger<ApiControllerBase> logger) : base(logger) { }
+    public GetOrganizationController(ILogger<ApiV1ControllerBase> logger) : base(logger) { }
 
     [HttpGet("{id}")]
     public async Task<Ok<Organization>> Index()
