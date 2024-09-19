@@ -1,5 +1,5 @@
 @host = http://localhost:5001
 
-POST {{host}}/organizations/
+POST {{host}}/v1/organizations/
 
 # ###

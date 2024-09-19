@@ -1,4 +1,4 @@
-namespace Organizations.Api.Entity;
+namespace Organizations.Api.Models;
 
 public class Organization
 {

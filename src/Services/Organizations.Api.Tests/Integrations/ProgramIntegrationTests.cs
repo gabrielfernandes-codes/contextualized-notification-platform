@@ -1,20 +1,28 @@
 namespace Organizations.Api.Tests.Integrations;
 
 using Microsoft.AspNetCore.Mvc.Testing;
-using System.Net.Http;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-public class ProgramIntegrationTests(WebApplicationFactory<OrganizationApiProgram> factory) : IClassFixture<WebApplicationFactory<OrganizationApiProgram>>
+public class ProgramIntegrationTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
-    public async Task PostOrganization_Returns201Created()
+    public async Task SuccessfullyCreateOrganizationV1()
     {
-        var response = await _client.PostAsync("/organizations", null);
+        var response = await _client.PostAsync("/v1/organizations", null);
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task SuccessfullyGetOrganizationV1()
+    {
+        var response = await _client.GetAsync("/v1/organizations/id");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 }
