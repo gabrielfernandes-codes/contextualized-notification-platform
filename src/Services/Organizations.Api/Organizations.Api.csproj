@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Api.Infrastructure.Server\Api.Infrastructure.Server.csproj" />
+    <ProjectReference Include="..\..\Libraries\Organizations.Domain.Fixtures\Organizations.Domain.Fixtures.csproj" />
+    <ProjectReference Include="..\..\Libraries\Organizations.Domain\Organizations.Domain.csproj" />
   </ItemGroup>
 
 </Project>

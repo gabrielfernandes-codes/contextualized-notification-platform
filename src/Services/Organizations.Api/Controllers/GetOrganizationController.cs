@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Organizations.Api.Http;
-using Organizations.Api.Models;
+using Organizations.Domain.Entities;
+using Organizations.Domain.Fixtures.Entities;
 
 namespace Organizations.Api.Controllers;
 
@@ -15,10 +16,7 @@ public class GetOrganizationController : ApiV1ControllerBase
     [HttpGet("{id}")]
     public async Task<Ok<Organization>> Index()
     {
-        var organization = new Organization
-        {
-            Id = Guid.NewGuid().ToString(),
-        };
+        var organization = OrganizationFixture.CreateEntity();
 
         _logger.LogInformation("Organization retrieved: {Id}", organization.Id);
 

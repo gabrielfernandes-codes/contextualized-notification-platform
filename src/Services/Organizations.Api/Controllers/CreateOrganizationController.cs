@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Organizations.Api.Http;
-using Organizations.Api.Models;
+using Organizations.Domain.Entities;
+using Organizations.Domain.Fixtures.Entities;
 
 namespace Organizations.Api.Controllers;
 
@@ -14,14 +15,11 @@ public class CreateOrganizationController : ApiV1ControllerBase
     [HttpPost()]
     public async Task<Created<Organization>> Index()
     {
-        var organization = new Organization
-        {
-            Id = Guid.NewGuid().ToString(),
-        };
+        var organization = OrganizationFixture.CreateEntity();
 
         _logger.LogInformation("Organization created: {Id}", organization.Id);
 
-        return TypedResults.Created(organization.Id, organization);
+        return TypedResults.Created(organization.Id.ToString(), organization);
     }
 }
 #pragma warning restore CS1998 // Temporarily disable async warning
