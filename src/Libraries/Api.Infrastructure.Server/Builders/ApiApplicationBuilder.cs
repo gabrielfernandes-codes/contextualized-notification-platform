@@ -2,43 +2,45 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Api.Infrastructure.Server.Services;
+namespace Api.Infrastructure.Server.Builder;
 
-public class ApiBuilder
+public class ApiApplicationBuilder
 {
-    private readonly string[] _args;
     private readonly Action<WebApplicationBuilder>? _configureBuilder;
     private readonly Action<WebApplication>? _configureApp;
 
-    public ApiBuilder(
-        string[] args,
+    public ApiApplicationBuilder(
         Action<WebApplicationBuilder>? configureBuilder = null,
         Action<WebApplication>? configureApp = null)
     {
-        _args = args;
         _configureBuilder = configureBuilder;
         _configureApp = configureApp;
     }
 
     public WebApplication Build()
     {
-        var builder = WebApplication.CreateBuilder(_args);
+        var builder = WebApplication.CreateBuilder();
 
-        builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddControllers();
         builder.Services.AddSwaggerGen();
 
         _configureBuilder?.Invoke(builder);
 
         var app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+            if (app.Environment.IsDevelopment())
+            {
+                options.EnableTryItOutByDefault();
+                options.EnablePersistAuthorization();
+            }
+        });
 
         app.UseHttpsRedirection();
+
         app.MapControllers();
 
         _configureApp?.Invoke(app);
