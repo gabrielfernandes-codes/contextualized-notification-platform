@@ -1,7 +1,7 @@
 {
     "name": "contextualized-notification-platform",
     "dockerComposeFile": "../docker-compose.yaml",
-    "service": "dotnet-dev",
+    "service": "dotnet-cli",
     "workspaceFolder": "/contextualized-notification-platform",
     "shutdownAction": "stopCompose",
     "postCreateCommand": "dotnet restore src",

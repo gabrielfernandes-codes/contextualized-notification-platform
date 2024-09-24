@@ -1,14 +1,13 @@
 services:
-  dotnet-dev:
+  dotnet-cli:
     build:
       context: .
       dockerfile: Dockerfile
-      target: dotnet-dev
+      target: dotnet-cli
     networks:
       - contextualized-notification-platform
     volumes:
       - .:/contextualized-notification-platform
-    command: sleep infinity
 
 networks:
   contextualized-notification-platform:

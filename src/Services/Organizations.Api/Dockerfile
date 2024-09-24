@@ -1,7 +1,7 @@
 ARG DOTNET_VERSION=8.0
 
-ARG APP_NAME=ContextualizedNotification.Platform
-ARG APP_SRC_PATH=src
+ARG APP_NAME=Organizations.Api
+ARG APP_SRC_PATH=src/Services/Organizations.Api
 
 
 # -------------------- dotnet-app --------------------- #
@@ -12,23 +12,30 @@ ARG APP_SRC_PATH
 
 WORKDIR /contextualized-notification-platform
 
-COPY ./src/ContextualizedNotification.Platform.sln ./src/
 COPY ./src/Services/Organizations.Api/Organizations.Api.csproj ./src/Services/Organizations.Api/
-COPY ./src/Services/Organizations.Api.Tests/Organizations.Api.Tests.csproj ./src/Services/Organizations.Api.Tests/
 COPY ./src/Libraries/Organizations.Domain/Organizations.Domain.csproj ./src/Libraries/Organizations.Domain/
 COPY ./src/Libraries/Organizations.Domain.Fixtures/Organizations.Domain.Fixtures.csproj ./src/Libraries/Organizations.Domain.Fixtures/
 COPY ./src/Libraries/Api.Infrastructure.Server/Api.Infrastructure.Server.csproj ./src/Libraries/Api.Infrastructure.Server/
 
-RUN dotnet restore "${APP_SRC_PATH}/${APP_NAME}.sln"
+RUN dotnet restore "${APP_SRC_PATH}/${APP_NAME}.csproj"
 
 COPY . .
 
+WORKDIR /contextualized-notification-platform/${APP_SRC_PATH}
 
-# -------------------- dotnet-cli --------------------- #
-FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}-bookworm-slim AS dotnet-cli
+RUN dotnet publish "${APP_NAME}.csproj" -c Release -o build
 
-WORKDIR /contextualized-notification-platform
 
-COPY --from=dotnet-app /contextualized-notification-platform .
+# ------------------ dotnet-app-api ------------------- #
+FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-bookworm-slim AS dotnet-app-api
 
-CMD ["sleep", "infinity"]
+ARG APP_NAME
+ARG APP_SRC_PATH
+
+WORKDIR /contextualized-notification-platform/${APP_SRC_PATH}
+
+COPY --from=dotnet-app /contextualized-notification-platform/${APP_SRC_PATH}/build .
+
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "${APP_NAME}.dll"]
