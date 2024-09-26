@@ -2,19 +2,25 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Api.Infrastructure.Server.Builder;
+namespace Api.Build.Infrastructure.Builder;
 
 public class ApiApplicationBuilder
 {
-    private readonly Action<WebApplicationBuilder>? _configureBuilder;
-    private readonly Action<WebApplication>? _configureApp;
+    private Action<WebApplicationBuilder>? _extendApplicationBuilder;
+    private Action<WebApplication>? _extendApplication;
 
-    public ApiApplicationBuilder(
-        Action<WebApplicationBuilder>? configureBuilder = null,
-        Action<WebApplication>? configureApp = null)
+    public ApiApplicationBuilder ExtendBuilder(Action<WebApplicationBuilder> extendApplicationBuilder)
     {
-        _configureBuilder = configureBuilder;
-        _configureApp = configureApp;
+        _extendApplicationBuilder = extendApplicationBuilder;
+
+        return this;
+    }
+
+    public ApiApplicationBuilder ExtendApp(Action<WebApplication> extendApplication)
+    {
+        _extendApplication = extendApplication;
+
+        return this;
     }
 
     public WebApplication Build()
@@ -22,10 +28,9 @@ public class ApiApplicationBuilder
         var builder = WebApplication.CreateBuilder();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddControllers();
         builder.Services.AddSwaggerGen();
 
-        _configureBuilder?.Invoke(builder);
+        _extendApplicationBuilder?.Invoke(builder);
 
         var app = builder.Build();
 
@@ -41,9 +46,7 @@ public class ApiApplicationBuilder
 
         app.UseHttpsRedirection();
 
-        app.MapControllers();
-
-        _configureApp?.Invoke(app);
+        _extendApplication?.Invoke(app);
 
         return app;
     }

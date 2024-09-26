@@ -1,4 +1,4 @@
-using Api.Infrastructure.Server.Builder;
+using Api.Build.Infrastructure.Builder;
 using Organizations.Api.Routes.Handlers;
 
 namespace Organizations.Api.Routes;

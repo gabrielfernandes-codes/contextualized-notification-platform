@@ -1,4 +1,17 @@
 services:
+  docker-runner:
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: docker-runner
+      args:
+        DOCKER_HOST: ${DOCKER_HOST} 
+    networks:
+      - contextualized-notification-platform
+    environment:
+      - DOCKER_HOST=tcp://0.0.0.0:2375    
+
   dotnet-cli:
     build:
       context: .
@@ -8,6 +21,11 @@ services:
       - contextualized-notification-platform
     volumes:
       - .:/contextualized-notification-platform
+    environment:
+      - DOCKER_HOST=tcp://docker-runner:2375
+    depends_on:
+      - docker-runner
+
 
 networks:
   contextualized-notification-platform:

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Organizations.Api.Routes;
+namespace Api.Build.Infrastructure.Builder;
 
 public static class ApiRouteGroupBuilder
 {

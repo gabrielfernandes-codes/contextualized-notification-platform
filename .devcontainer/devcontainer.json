@@ -4,7 +4,6 @@
     "service": "dotnet-cli",
     "workspaceFolder": "/contextualized-notification-platform",
     "shutdownAction": "stopCompose",
-    "postCreateCommand": "dotnet restore src",
     "features": {
         "ghcr.io/devcontainers/features/git:1.3.2": {}
     },
@@ -15,6 +14,7 @@
             },
             "extensions": [
                 "EditorConfig.EditorConfig",
+                "Postman.postman-for-vscode",
                 "Tyriar.sort-lines",
                 "humao.rest-client",
                 "ms-azuretools.vscode-docker",
@@ -23,8 +23,8 @@
                 "ms-dotnettools.vscode-dotnet-pack",
                 "ms-dotnettools.vscode-dotnet-runtime",
                 "ms-dotnettools.vscodeintellicode-csharp",
-                "streetsidesoftware.code-spell-checker",
-                "Postman.postman-for-vscode"
+                "redhat.vscode-xml",
+                "streetsidesoftware.code-spell-checker"
             ]
         }
     }
