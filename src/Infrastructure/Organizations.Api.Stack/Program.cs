@@ -1,6 +1,7 @@
 using ContainerImage.Build.Infrastructure.Builders;
 using Pulumi.AzureNative.Resources;
 
+#pragma warning disable CS1998
 return await Pulumi.Deployment.RunAsync(async () =>
 {
     var resourceGroup = new ResourceGroup("resourceGroup");
@@ -16,3 +17,4 @@ return await Pulumi.Deployment.RunAsync(async () =>
         ["image"] = image
     };
 });
+#pragma warning restore CS1998

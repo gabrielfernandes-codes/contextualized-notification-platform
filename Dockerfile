@@ -35,6 +35,7 @@ COPY ./${APP_SRC_PATH}/${APP_NAME}.sln ./${APP_SRC_PATH}/
 COPY ./src/Infrastructure/Organizations.Api.Stack/Organizations.Api.Stack.csproj ./src/Infrastructure/Organizations.Api.Stack/
 COPY ./src/Libraries/Api.Build.Infrastructure/Api.Build.Infrastructure.csproj ./src/Libraries/Api.Build.Infrastructure/
 COPY ./src/Libraries/ContainerImage.Build.Infrastructure/ContainerImage.Build.Infrastructure.csproj ./src/Libraries/ContainerImage.Build.Infrastructure/
+COPY ./src/Libraries/Exceptions.Common/Exceptions.Common.csproj ./src/Libraries/Exceptions.Common/
 COPY ./src/Libraries/Organizations.Domain.Fixtures/Organizations.Domain.Fixtures.csproj ./src/Libraries/Organizations.Domain.Fixtures/
 COPY ./src/Libraries/Organizations.Domain/Organizations.Domain.csproj ./src/Libraries/Organizations.Domain/
 COPY ./src/Services/Organizations.Api.Tests/Organizations.Api.Tests.csproj ./src/Services/Organizations.Api.Tests/

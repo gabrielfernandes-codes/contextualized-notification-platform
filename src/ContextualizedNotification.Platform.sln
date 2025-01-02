@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Build.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerImage.Build.Infrastructure", "Libraries\ContainerImage.Build.Infrastructure\ContainerImage.Build.Infrastructure.csproj", "{50D3DF6E-ECB5-40FE-A53D-6BBC7577A5FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions.Common", "Libraries\Exceptions.Common\Exceptions.Common.csproj", "{266F5E32-D9EA-45F6-9E44-CA59A36185BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{50D3DF6E-ECB5-40FE-A53D-6BBC7577A5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50D3DF6E-ECB5-40FE-A53D-6BBC7577A5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50D3DF6E-ECB5-40FE-A53D-6BBC7577A5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{266F5E32-D9EA-45F6-9E44-CA59A36185BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266F5E32-D9EA-45F6-9E44-CA59A36185BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266F5E32-D9EA-45F6-9E44-CA59A36185BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266F5E32-D9EA-45F6-9E44-CA59A36185BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +75,6 @@ Global
 		{916B97A3-4161-4CB3-9BCB-0A262AA988FC} = {E83B0B54-8644-4001-992B-7DFC6D7E0822}
 		{33558408-109A-4273-B743-93EBAB1683D1} = {D2C090FA-A294-42C2-B69C-3E56CA0D443A}
 		{50D3DF6E-ECB5-40FE-A53D-6BBC7577A5FD} = {D2C090FA-A294-42C2-B69C-3E56CA0D443A}
+		{266F5E32-D9EA-45F6-9E44-CA59A36185BC} = {D2C090FA-A294-42C2-B69C-3E56CA0D443A}
 	EndGlobalSection
 EndGlobal

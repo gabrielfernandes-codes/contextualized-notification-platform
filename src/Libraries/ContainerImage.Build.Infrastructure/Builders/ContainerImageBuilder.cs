@@ -1,3 +1,7 @@
+using ContainerImage.Build.Infrastructure.Validators;
+using Exceptions.Common;
+using FluentValidation;
+using FluentValidation.Results;
 using Pulumi.DockerBuild;
 using Pulumi.DockerBuild.Inputs;
 
@@ -5,47 +9,53 @@ namespace ContainerImage.Build.Infrastructure.Builders;
 
 public class ContainerImageBuilder
 {
-    private string? _context;
-    private string? _dockerfile;
-    private string? _imageName;
+    public string? Context { get; private set; }
+
+    public string? Dockerfile { get; private set; }
+
+    public string? ImageName { get; private set; }
 
     public ContainerImageBuilder WithContext(string context)
     {
-        _context = context;
+        Context = context;
 
         return this;
     }
 
     public ContainerImageBuilder WithDockerfile(string dockerfile)
     {
-        _dockerfile = dockerfile;
+        Dockerfile = dockerfile;
 
         return this;
     }
 
     public ContainerImageBuilder WithImageName(string imageName)
     {
-        _imageName = imageName;
+        ImageName = imageName;
 
         return this;
     }
 
     public Image Build()
     {
-        if (_context == null || _dockerfile == null || _imageName == null)
+        var validator = new ContainerImageBuilderValidator();
+
+        ValidationResult result = validator.Validate(this);
+
+        if (!result.IsValid)
         {
-            throw new InvalidOperationException("Context, Dockerfile, and ImageName must be provided.");
+            throw new FluentValidationException(result.Errors);
         }
 
-        var image = new Image(_imageName, new ImageArgs
+        var image = new Image(ImageName, new ImageArgs
         {
             Context = new BuildContextArgs
             {
-                Location = _context,
+                Location = Context,
             },
             Dockerfile = new DockerfileArgs
             {
-                Location = _dockerfile,
+                Location = Dockerfile,
             },
             Push = false,
         });
