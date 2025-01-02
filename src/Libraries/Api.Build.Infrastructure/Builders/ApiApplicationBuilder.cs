@@ -1,24 +1,35 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Scalar.AspNetCore;
 
 namespace Api.Build.Infrastructure.Builder;
 
-public class ApiApplicationBuilder
+public class ApiApplicationBuilder()
 {
-    private Action<WebApplicationBuilder>? _extendApplicationBuilder;
-    private Action<WebApplication>? _extendApplication;
+    public string ApplicationName { get; private set; } = "API Application";
 
-    public ApiApplicationBuilder ExtendBuilder(Action<WebApplicationBuilder> extendApplicationBuilder)
+    public Action<WebApplicationBuilder>? ExtendApplicationBuilder { get; private set; }
+
+    public Action<WebApplication>? ExtendApplication { get; private set; }
+
+    public ApiApplicationBuilder WithApplicationName(string applicationName)
     {
-        _extendApplicationBuilder = extendApplicationBuilder;
+        ApplicationName = applicationName;
 
         return this;
     }
 
-    public ApiApplicationBuilder ExtendApp(Action<WebApplication> extendApplication)
+    public ApiApplicationBuilder WithBuilderExtension(Action<WebApplicationBuilder> extendApplicationBuilder)
     {
-        _extendApplication = extendApplication;
+        ExtendApplicationBuilder = extendApplicationBuilder;
+
+        return this;
+    }
+
+    public ApiApplicationBuilder WithAppExtension(Action<WebApplication> extendApplication)
+    {
+        ExtendApplication = extendApplication;
 
         return this;
     }
@@ -28,26 +39,39 @@ public class ApiApplicationBuilder
         var builder = WebApplication.CreateBuilder();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddOpenApi("public", options =>
+        {
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                document.Info = new()
+                {
+                    Title = ApplicationName
+                };
 
-        _extendApplicationBuilder?.Invoke(builder);
+                return Task.CompletedTask;
+            });
+        });
+
+        ExtendApplicationBuilder?.Invoke(builder);
 
         var app = builder.Build();
 
-        app.UseSwagger();
-        app.UseSwaggerUI(options =>
+        app.MapOpenApi("/openapi/{documentName}.json");
+
+        if (app.Environment.IsDevelopment())
         {
-            if (app.Environment.IsDevelopment())
-            {
-                options.EnableTryItOutByDefault();
-                options.EnablePersistAuthorization();
-            }
-        });
+            app.MapScalarApiReference(options =>
+              {
+                  options.Title = $"{ApplicationName} Docs - {{documentName}}";
+                  options.EndpointPathPrefix = "/docs/{documentName}";
+              });
+        }
 
         app.UseHttpsRedirection();
 
-        _extendApplication?.Invoke(app);
+        ExtendApplication?.Invoke(app);
 
         return app;
     }
+
 }

@@ -5,9 +5,11 @@ namespace Organizations.Api;
 
 public class Program
 {
+    public const string Name = "Organizations.Api";
+
     public static void Main()
     {
-        var server = new ApiApplicationBuilder().Build();
+        var server = new ApiApplicationBuilder().WithApplicationName(Name).Build();
 
         server.MapRouteGroup();
 
