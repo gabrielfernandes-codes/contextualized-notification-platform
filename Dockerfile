@@ -1,4 +1,4 @@
-ARG DOTNET_VERSION=8.0
+ARG DOTNET_VERSION=9.0
 ARG DOCKER_RUNNER_VERSION=27.3.1
 
 ARG APP_NAME=ContextualizedNotification.Platform
@@ -30,7 +30,8 @@ ARG APP_SRC_PATH
 
 WORKDIR /contextualized-notification-platform
 
-COPY ./src/ContextualizedNotification.Platform.sln ./src/
+COPY ./${APP_SRC_PATH}/${APP_NAME}.sln ./${APP_SRC_PATH}/
+
 COPY ./src/Infrastructure/Organizations.Api.Stack/Organizations.Api.Stack.csproj ./src/Infrastructure/Organizations.Api.Stack/
 COPY ./src/Libraries/Api.Build.Infrastructure/Api.Build.Infrastructure.csproj ./src/Libraries/Api.Build.Infrastructure/
 COPY ./src/Libraries/ContainerImage.Build.Infrastructure/ContainerImage.Build.Infrastructure.csproj ./src/Libraries/ContainerImage.Build.Infrastructure/
@@ -50,7 +51,6 @@ FROM dotnet-base AS dotnet-cli
 RUN set -x \
     && curl -fsSL https://get.pulumi.com | bash \
     && curl -fsSL https://aka.ms/InstallAzureCLIDeb | bash
-
 
 WORKDIR /contextualized-notification-platform
 

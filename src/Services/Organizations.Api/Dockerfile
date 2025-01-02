@@ -1,7 +1,7 @@
-ARG DOTNET_VERSION=8.0
+ARG DOTNET_VERSION=9.0
 
 ARG APP_NAME=Organizations.Api
-ARG APP_SRC_PATH=src/Services/Organizations.Api
+ARG APP_SRC_PATH=src/Services/${APP_NAME}
 
 
 # -------------------- dotnet-base -------------------- #
@@ -20,7 +20,8 @@ ARG APP_SRC_PATH
 
 WORKDIR /contextualized-notification-platform
 
-COPY ./src/Services/Organizations.Api/Organizations.Api.csproj ./src/Services/Organizations.Api/
+COPY ./${APP_SRC_PATH}/${APP_NAME}.csproj ./${APP_SRC_PATH}/
+
 COPY ./src/Libraries/Organizations.Domain/Organizations.Domain.csproj ./src/Libraries/Organizations.Domain/
 COPY ./src/Libraries/Organizations.Domain.Fixtures/Organizations.Domain.Fixtures.csproj ./src/Libraries/Organizations.Domain.Fixtures/
 COPY ./src/Libraries/Api.Build.Infrastructure/Api.Build.Infrastructure.csproj ./src/Libraries/Api.Build.Infrastructure/
