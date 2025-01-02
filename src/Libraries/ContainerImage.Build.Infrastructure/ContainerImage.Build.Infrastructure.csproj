@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.2.2" />
-    <PackageReference Include="Pulumi" Version="3.67.1" />
-    <PackageReference Include="Pulumi.DockerBuild" Version="0.0.6" />
+    <PackageReference Include="Pulumi" Version="3.71.1" />
+    <PackageReference Include="Pulumi.DockerBuild" Version="0.0.8" />
+  </ItemGroup>
+
   </ItemGroup>
 
 </Project>
