@@ -1,5 +1,7 @@
 name: Organizations.Api.Stack
+
 runtime: dotnet
+
 config:
   pulumi:tags:
     value:
