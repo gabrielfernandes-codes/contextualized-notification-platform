@@ -47,4 +47,6 @@ COPY --from=dotnet-app /contextualized-notification-platform/${APP_SRC_PATH}/bui
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "${APP_NAME}.dll"]
+ENV APP_NAME=${APP_NAME}
+
+ENTRYPOINT ["sh", "-c", "dotnet ${APP_NAME}.dll"]
